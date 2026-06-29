@@ -2,7 +2,7 @@
 
 @theme {
   /* Fonts */
-  --font-display: var(--font-quicksand), sans-serif;
+  --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-body: var(--font-nunito-sans), sans-serif;
 
   /* Brand colors */

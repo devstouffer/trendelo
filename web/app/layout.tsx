@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Quicksand, Nunito_Sans } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 
-const quicksand = Quicksand({
-  variable: "--font-quicksand",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-const nunitoSans = Nunito_Sans({
+const bodyFont = Figtree({
   variable: "--font-nunito-sans",
   subsets: ["latin"],
   weight: ["400", "600", "700"],
@@ -25,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${quicksand.variable} ${nunitoSans.variable}`}>
+    <html lang="en" className={bodyFont.variable}>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );

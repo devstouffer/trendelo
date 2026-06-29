@@ -23,6 +23,20 @@ const tracks = [
     emoji: "💼",
     popular: false,
   },
+  {
+    id: "journalism",
+    title: "AI in Journalism & Media",
+    description: "For journalism students and early-career reporters.",
+    emoji: "📰",
+    popular: false,
+  },
+  {
+    id: "architecture",
+    title: "AI in Design",
+    description: "For architecture, interior design, and creative design students.",
+    emoji: "🏛️",
+    popular: false,
+  },
 ];
 
 export default function TrackSelectionPage() {
@@ -67,7 +81,7 @@ export default function TrackSelectionPage() {
           Choose your track to get started.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
           {tracks.map((track) => (
             <div
               key={track.id}

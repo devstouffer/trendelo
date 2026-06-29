@@ -6,16 +6,25 @@ const FEATURES = [
     icon: "🎯",
     title: "Built for your field",
     body: "Every track is designed for one career path — not generic AI content. Marketing, Education, Business, and more coming.",
+    bg: "#eafef7",
+    border: "var(--color-primary-light)",
+    shadow: "var(--color-primary)",
   },
   {
     icon: "📅",
     title: "Fresh every month",
     body: "AI moves fast. Pro subscribers get a monthly digest of what changed in their field — and what it means for their work.",
+    bg: "#eef5ff",
+    border: "var(--color-blue)",
+    shadow: "#2a6bbf",
   },
   {
     icon: "🏅",
     title: "Credentials that matter",
     body: "Complete a track and earn a shareable LinkedIn badge with a verified credential page. Proof your AI skills are current.",
+    bg: "#fff8ec",
+    border: "var(--color-amber)",
+    shadow: "#a06510",
   },
 ];
 
@@ -41,6 +50,20 @@ const TRACKS = [
     desc: "Strategy, workforce, productivity, governance — the AI playbook for modern professionals.",
     badge: "AI-Fluent Business Pro",
     emoji: "💼",
+  },
+  {
+    id: "journalism",
+    title: "AI in Journalism & Media",
+    desc: "Synthetic media, verification tools, automated reporting — stay ahead of AI's impact on the newsroom.",
+    badge: "AI-Literate Journalist",
+    emoji: "📰",
+  },
+  {
+    id: "architecture",
+    title: "AI in Design",
+    desc: "Generative design, AI rendering, parametric modelling — unlock AI as a creative tool in your practice.",
+    badge: "AI-Fluent Designer",
+    emoji: "🏛️",
   },
 ];
 
@@ -70,7 +93,15 @@ export default function LandingPage() {
         <SpiralBackground charColor="#c8f0e0" />
 
         {/* Nav */}
-        <header className="relative z-10 w-full max-w-[1100px] mx-auto flex items-center justify-between px-10 py-6">
+        <header
+          className="relative z-10 w-full flex items-center justify-between px-10 py-4"
+          style={{
+            backgroundColor: "rgba(4, 38, 28, 0.75)",
+            backdropFilter: "blur(12px)",
+            borderBottom: "1px solid rgba(200,240,224,0.1)",
+          }}
+        >
+          <div className="w-full max-w-[1100px] mx-auto flex items-center justify-between">
           <span
             className="text-xl font-bold tracking-tight"
             style={{ fontFamily: "var(--font-display)", color: "#e1f5ee" }}
@@ -110,6 +141,7 @@ export default function LandingPage() {
             >
               Get started free
             </Link>
+          </div>
           </div>
         </header>
 
@@ -213,9 +245,17 @@ export default function LandingPage() {
 
       {/* ── FEATURES ──────────────────────────────────────────────────────── */}
       <section className="bg-white py-24 px-6">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {FEATURES.map((f) => (
-            <div key={f.title} className="flex flex-col">
+            <div
+              key={f.title}
+              className="flex flex-col p-8 rounded-2xl border-2"
+              style={{
+                backgroundColor: f.bg,
+                borderColor: f.border,
+                boxShadow: `4px 4px 0px ${f.shadow}`,
+              }}
+            >
               <div className="text-4xl mb-5">{f.icon}</div>
               <h3
                 className="text-xl font-bold mb-3"
@@ -246,7 +286,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {TRACKS.map((track) => (
               <div
                 key={track.id}
