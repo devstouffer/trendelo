@@ -1,164 +1,492 @@
 import Link from "next/link";
+import SpiralBackground from "./components/SpiralBackground";
 
-const tracks = [
+const FEATURES = [
+  {
+    icon: "🎯",
+    title: "Built for your field",
+    body: "Every track is designed for one career path — not generic AI content. Marketing, Education, Business, and more coming.",
+  },
+  {
+    icon: "📅",
+    title: "Fresh every month",
+    body: "AI moves fast. Pro subscribers get a monthly digest of what changed in their field — and what it means for their work.",
+  },
+  {
+    icon: "🏅",
+    title: "Credentials that matter",
+    body: "Complete a track and earn a shareable LinkedIn badge with a verified credential page. Proof your AI skills are current.",
+  },
+];
+
+const TRACKS = [
   {
     id: "marketing",
     title: "AI in Marketing",
-    description: "For marketing students and early-career professionals.",
+    desc: "Content, SEO, paid media, analytics — how AI is reshaping every corner of modern marketing.",
+    badge: "AI-Ready Marketer",
     emoji: "📈",
-    popular: false,
   },
   {
     id: "education",
     title: "AI in Education",
-    description: "For teachers and education students.",
+    desc: "From lesson planning to academic integrity — how teachers stay ahead of AI in the classroom.",
+    badge: "AI-Confident Educator",
     emoji: "🎓",
     popular: true,
   },
   {
     id: "business",
     title: "AI in Business",
-    description: "For MBA students, managers, and consultants.",
+    desc: "Strategy, workforce, productivity, governance — the AI playbook for modern professionals.",
+    badge: "AI-Fluent Business Pro",
     emoji: "💼",
-    popular: false,
   },
 ];
 
-export default function TrackSelectionPage() {
+const FREE_FEATURES = [
+  "Module 1 of your chosen track (4 lessons)",
+  "Knowledge check quiz",
+  "Track overview & roadmap",
+];
+
+const PRO_FEATURES = [
+  "All 6 modules across all 3 tracks",
+  "Monthly AI update digest per track",
+  "Shareable LinkedIn badge on completion",
+  "All downloadable resources & templates",
+  "Cancel anytime — no contract",
+];
+
+export default function LandingPage() {
   return (
-    <div className="relative min-h-screen flex flex-col" style={{ backgroundColor: "var(--color-mint)" }}>
-      {/* Subtle grid background pattern */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--color-forest) 1px, transparent 1px), linear-gradient(90deg, var(--color-forest) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
+    <div className="min-h-screen flex flex-col">
 
-      {/* Nav */}
-      <header className="relative z-10 flex items-center justify-between px-10 py-5">
-        <span
-          className="text-xl font-bold tracking-tight"
-          style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
-        >
-          Trendelo
-        </span>
-        <button
-          aria-label="Sign in"
-          className="text-sm font-semibold px-4 py-2 rounded-full border-2 transition-all"
-          style={{
-            fontFamily: "var(--font-display)",
-            color: "var(--color-primary)",
-            borderColor: "var(--color-primary)",
-            backgroundColor: "transparent",
-          }}
-        >
-          Sign in
-        </button>
-      </header>
+      {/* ── HERO ──────────────────────────────────────────────────────────── */}
+      <section
+        className="relative flex flex-col min-h-screen overflow-hidden"
+        style={{ backgroundColor: "var(--color-forest)" }}
+      >
+        <SpiralBackground charColor="#c8f0e0" />
 
-      {/* Main */}
-      <main className="relative z-10 flex flex-col flex-1 items-center justify-center px-6 py-12">
-        <h1
-          className="text-4xl md:text-5xl font-bold text-center mb-3"
-          style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
-        >
-          AI is changing your field.
-          <br />
-          We&apos;ll show you how.
-        </h1>
-        <p
-          className="text-lg mb-12 text-center"
-          style={{ color: "var(--color-on-surface-muted)" }}
-        >
-          Choose your track to get started.
-        </p>
-
-        {/* Track cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
-          {tracks.map((track) => (
-            <div
-              key={track.id}
-              className="relative flex flex-col items-center text-center p-8 rounded-2xl border-2"
+        {/* Nav */}
+        <header className="relative z-10 w-full max-w-[1100px] mx-auto flex items-center justify-between px-10 py-6">
+          <span
+            className="text-xl font-bold tracking-tight"
+            style={{ fontFamily: "var(--font-display)", color: "#e1f5ee" }}
+          >
+            Trendelo
+          </span>
+          <nav className="hidden md:flex items-center gap-8">
+            {[["Tracks", "#tracks"], ["How it works", "#how"], ["Pricing", "#pricing"]].map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                className="text-sm font-semibold transition-opacity hover:opacity-70"
+                style={{ color: "#a0d4be", fontFamily: "var(--font-display)" }}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/sign-in"
+              className="text-sm font-semibold transition-opacity hover:opacity-70"
+              style={{ color: "#a0d4be", fontFamily: "var(--font-display)" }}
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/get-started"
+              className="text-sm font-bold px-5 py-2.5 rounded-full border-2"
               style={{
-                backgroundColor: "var(--color-surface)",
-                borderColor: "var(--color-forest)",
-                boxShadow: "4px 4px 0px var(--color-forest)",
+                backgroundColor: "var(--color-primary-light)",
+                borderColor: "#c8f0e0",
+                color: "#fff",
+                fontFamily: "var(--font-display)",
+                boxShadow: "3px 3px 0px #c8f0e0",
               }}
             >
-              {track.popular && (
-                <span
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border-2"
-                  style={{
-                    backgroundColor: "var(--color-amber)",
-                    borderColor: "var(--color-forest)",
-                    color: "#fff",
-                    fontFamily: "var(--font-body)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Popular
-                </span>
-              )}
+              Get started free
+            </Link>
+          </div>
+        </header>
 
-              <div className="text-5xl mb-4">{track.emoji}</div>
+        {/* Hero content */}
+        <div className="relative z-10 flex flex-col flex-1 items-center justify-center text-center px-6 pb-20">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-8 text-xs font-bold uppercase tracking-widest"
+            style={{
+              borderColor: "rgba(200,240,224,0.25)",
+              backgroundColor: "rgba(200,240,224,0.07)",
+              color: "#a0d4be",
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full inline-block"
+              style={{ backgroundColor: "var(--color-primary-light)", animation: "pulse 2s infinite" }}
+            />
+            New modules added monthly
+          </div>
 
-              <h2
-                className="text-xl font-bold mb-2"
-                style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
-              >
-                {track.title}
-              </h2>
-              <p
-                className="text-sm mb-8 leading-relaxed"
-                style={{ color: "var(--color-on-surface-muted)" }}
-              >
-                {track.description}
-              </p>
+          <h1
+            className="text-5xl md:text-[3.75rem] font-bold leading-[1.1] mb-6"
+            style={{
+              fontFamily: "var(--font-display)",
+              color: "#ffffff",
+              letterSpacing: "-0.025em",
+              maxWidth: "800px",
+            }}
+          >
+            AI is changing your field.{" "}
+            <span style={{ color: "var(--color-primary-light)" }}>We&apos;ll show you how.</span>
+          </h1>
 
-              <Link
-                href={`/onboarding?track=${track.id}`}
-                className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
+          <p
+            className="text-lg mb-10 leading-relaxed"
+            style={{ color: "#8fc9b0", fontFamily: "var(--font-body)", maxWidth: "520px" }}
+          >
+            Field-specific AI tracks for students and professionals who need practical skills — not tech jargon. Updated every month as AI evolves.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <Link
+              href="/get-started"
+              className="px-8 py-3.5 rounded-full border-2 text-base font-bold"
+              style={{
+                fontFamily: "var(--font-display)",
+                backgroundColor: "var(--color-primary-light)",
+                borderColor: "#c8f0e0",
+                color: "#fff",
+                boxShadow: "4px 4px 0px #c8f0e0",
+              }}
+            >
+              Start for free →
+            </Link>
+            <a
+              href="#tracks"
+              className="px-8 py-3.5 rounded-full border-2 text-base font-bold"
+              style={{
+                fontFamily: "var(--font-display)",
+                borderColor: "rgba(200,240,224,0.3)",
+                color: "#a0d4be",
+              }}
+            >
+              See the tracks
+            </a>
+          </div>
+
+          {/* Track pills */}
+          <div className="flex flex-wrap justify-center gap-3 mt-12">
+            {TRACKS.map((t) => (
+              <span
+                key={t.id}
+                className="text-xs font-bold px-4 py-2 rounded-full border"
                 style={{
-                  fontFamily: "var(--font-display)",
-                  backgroundColor: "var(--color-primary)",
-                  borderColor: "var(--color-forest)",
-                  color: "#fff",
-                  boxShadow: "3px 3px 0px var(--color-forest)",
+                  borderColor: "rgba(200,240,224,0.2)",
+                  backgroundColor: "rgba(200,240,224,0.05)",
+                  color: "#8fc9b0",
+                  fontFamily: "var(--font-body)",
                 }}
               >
-                Select Track
-              </Link>
+                {t.emoji} {t.title}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll hint */}
+        <div className="relative z-10 flex justify-center pb-8" aria-hidden>
+          <div
+            className="w-6 h-10 rounded-full border-2 flex items-start justify-center pt-1.5"
+            style={{ borderColor: "rgba(200,240,224,0.25)" }}
+          >
+            <div
+              className="w-1 h-2.5 rounded-full"
+              style={{ backgroundColor: "rgba(200,240,224,0.4)", animation: "bounce 1.8s infinite" }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── FEATURES ──────────────────────────────────────────────────────── */}
+      <section className="bg-white py-24 px-6">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+          {FEATURES.map((f) => (
+            <div key={f.title} className="flex flex-col">
+              <div className="text-4xl mb-5">{f.icon}</div>
+              <h3
+                className="text-xl font-bold mb-3"
+                style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
+              >
+                {f.title}
+              </h3>
+              <p className="text-base leading-relaxed" style={{ color: "var(--color-on-surface-muted)" }}>
+                {f.body}
+              </p>
             </div>
           ))}
         </div>
+      </section>
 
-        {/* Step indicator */}
-        <div className="mt-14 flex flex-col items-center gap-2">
-          <div
-            className="w-48 h-3 rounded-full border-2 overflow-hidden"
-            style={{ borderColor: "var(--color-forest)", backgroundColor: "#fff" }}
-          >
-            <div
-              className="h-full rounded-full"
-              style={{ width: "33%", backgroundColor: "var(--color-primary)" }}
-            />
+      {/* ── TRACKS ────────────────────────────────────────────────────────── */}
+      <section id="tracks" className="py-24 px-6" style={{ backgroundColor: "var(--color-mint)" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-14">
+            <h2
+              className="text-4xl font-bold mb-3"
+              style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)", letterSpacing: "-0.02em" }}
+            >
+              Pick your track
+            </h2>
+            <p style={{ color: "var(--color-on-surface-muted)" }}>
+              Each track is built around one field. Practical, specific, and updated monthly.
+            </p>
           </div>
-          <span
-            className="text-xs font-bold uppercase tracking-widest"
-            style={{ color: "var(--color-on-surface-muted)", fontFamily: "var(--font-body)" }}
-          >
-            Step 1 of 3
-          </span>
-        </div>
-      </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 text-center py-5">
-        <p className="text-xs" style={{ color: "var(--color-on-surface-muted)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {TRACKS.map((track) => (
+              <div
+                key={track.id}
+                className="relative flex flex-col p-8 rounded-2xl border-2 bg-white"
+                style={{ borderColor: "var(--color-forest)", boxShadow: "4px 4px 0px var(--color-forest)" }}
+              >
+                {track.popular && (
+                  <span
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border-2 whitespace-nowrap"
+                    style={{
+                      backgroundColor: "var(--color-amber)",
+                      borderColor: "var(--color-forest)",
+                      color: "#fff",
+                      fontFamily: "var(--font-body)",
+                    }}
+                  >
+                    Popular
+                  </span>
+                )}
+                <div className="text-4xl mb-4">{track.emoji}</div>
+                <h3
+                  className="text-xl font-bold mb-2"
+                  style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
+                >
+                  {track.title}
+                </h3>
+                <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: "var(--color-on-surface-muted)" }}>
+                  {track.desc}
+                </p>
+                <span
+                  className="self-start text-xs font-bold px-3 py-1.5 rounded-full border mb-6"
+                  style={{
+                    borderColor: "var(--color-primary-light)",
+                    color: "var(--color-primary)",
+                    backgroundColor: "var(--color-mint)",
+                    fontFamily: "var(--font-body)",
+                  }}
+                >
+                  ✓ {track.badge}
+                </span>
+                <Link
+                  href={`/get-started?track=${track.id}`}
+                  className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    backgroundColor: "var(--color-primary)",
+                    borderColor: "var(--color-forest)",
+                    color: "#fff",
+                    boxShadow: "3px 3px 0px var(--color-forest)",
+                  }}
+                >
+                  Start this track
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
+      <section id="how" className="bg-white py-24 px-6">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-14">
+            <h2
+              className="text-4xl font-bold mb-3"
+              style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)", letterSpacing: "-0.02em" }}
+            >
+              How it works
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-3xl mx-auto">
+            {[
+              { step: "1", title: "Pick your field", body: "Choose the track that matches your career — Marketing, Education, or Business." },
+              { step: "2", title: "Learn in bite-sized cards", body: "Work through modules at your pace. One idea per card. Quizzes after each module." },
+              { step: "3", title: "Earn your badge", body: "Pass the final assessment and share your verified LinkedIn credential." },
+            ].map((s) => (
+              <div key={s.step} className="flex flex-col items-start">
+                <div
+                  className="w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-bold mb-5"
+                  style={{
+                    borderColor: "var(--color-forest)",
+                    backgroundColor: "var(--color-mint)",
+                    color: "var(--color-forest)",
+                    fontFamily: "var(--font-display)",
+                    boxShadow: "2px 2px 0px var(--color-forest)",
+                  }}
+                >
+                  {s.step}
+                </div>
+                <h3
+                  className="text-lg font-bold mb-2"
+                  style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
+                >
+                  {s.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--color-on-surface-muted)" }}>
+                  {s.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PRICING ───────────────────────────────────────────────────────── */}
+      <section id="pricing" className="py-24 px-6" style={{ backgroundColor: "var(--color-mint)" }}>
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-14">
+            <h2
+              className="text-4xl font-bold mb-3"
+              style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)", letterSpacing: "-0.02em" }}
+            >
+              Simple pricing
+            </h2>
+            <p style={{ color: "var(--color-on-surface-muted)" }}>
+              Start free. Unlock everything with Pro.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {/* Free */}
+            <div
+              className="p-8 rounded-2xl border-2 flex flex-col bg-white"
+              style={{ borderColor: "var(--color-outline)" }}
+            >
+              <div
+                className="text-xs font-bold uppercase tracking-widest mb-4"
+                style={{ color: "var(--color-on-surface-muted)", fontFamily: "var(--font-body)" }}
+              >
+                Free
+              </div>
+              <div
+                className="text-5xl font-bold mb-1"
+                style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
+              >
+                $0
+              </div>
+              <div className="text-sm mb-8" style={{ color: "var(--color-on-surface-muted)" }}>forever</div>
+              <ul className="flex flex-col gap-3 mb-8 flex-1">
+                {FREE_FEATURES.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "var(--color-on-surface-muted)" }}>
+                    <span style={{ color: "var(--color-primary-light)" }}>✓</span> {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/get-started"
+                className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
+                style={{
+                  borderColor: "var(--color-outline)",
+                  color: "var(--color-forest)",
+                  fontFamily: "var(--font-display)",
+                }}
+              >
+                Start free
+              </Link>
+            </div>
+
+            {/* Pro */}
+            <div
+              className="p-8 rounded-2xl border-2 flex flex-col"
+              style={{
+                borderColor: "var(--color-forest)",
+                backgroundColor: "var(--color-forest)",
+                boxShadow: "4px 4px 0px var(--color-primary)",
+              }}
+            >
+              <div
+                className="text-xs font-bold uppercase tracking-widest mb-4"
+                style={{ color: "#8fc9b0", fontFamily: "var(--font-body)" }}
+              >
+                Pro
+              </div>
+              <div className="text-5xl font-bold mb-1" style={{ fontFamily: "var(--font-display)", color: "#fff" }}>
+                $15<span className="text-2xl font-normal">/mo</span>
+              </div>
+              <div className="text-sm mb-8" style={{ color: "#8fc9b0" }}>or $144/year — save 20%</div>
+              <ul className="flex flex-col gap-3 mb-8 flex-1">
+                {PRO_FEATURES.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "#c8f0e0" }}>
+                    <span style={{ color: "var(--color-primary-light)" }}>✓</span> {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/get-started"
+                className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  backgroundColor: "var(--color-primary-light)",
+                  borderColor: "#c8f0e0",
+                  color: "#fff",
+                  boxShadow: "3px 3px 0px #c8f0e0",
+                }}
+              >
+                Go Pro
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM CTA ────────────────────────────────────────────────────── */}
+      <section
+        className="py-28 px-6 text-center"
+        style={{ backgroundColor: "var(--color-forest)" }}
+      >
+        <div className="max-w-2xl mx-auto">
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-5"
+            style={{ fontFamily: "var(--font-display)", color: "#fff", letterSpacing: "-0.025em" }}
+          >
+            Your field is changing.{" "}
+            <span style={{ color: "var(--color-primary-light)" }}>Get ahead of it.</span>
+          </h2>
+          <p className="text-lg mb-10" style={{ color: "#8fc9b0", fontFamily: "var(--font-body)" }}>
+            Start with Module 1 for free. No credit card required.
+          </p>
+          <Link
+            href="/get-started"
+            className="inline-block px-10 py-4 rounded-full border-2 text-base font-bold"
+            style={{
+              fontFamily: "var(--font-display)",
+              backgroundColor: "var(--color-primary-light)",
+              borderColor: "#c8f0e0",
+              color: "#fff",
+              boxShadow: "4px 4px 0px #c8f0e0",
+            }}
+          >
+            Start for free →
+          </Link>
+        </div>
+      </section>
+
+      {/* ── FOOTER ────────────────────────────────────────────────────────── */}
+      <footer
+        className="py-8 px-10 text-center border-t"
+        style={{ backgroundColor: "var(--color-forest)", borderTopColor: "rgba(200,240,224,0.12)" }}
+      >
+        <p className="text-xs" style={{ color: "rgba(200,240,224,0.4)" }}>
           © 2024 Trendelo AI Academy. All rights reserved.
         </p>
       </footer>
