@@ -1,5 +1,6 @@
 import Link from "next/link";
-import SpiralBackground from "../components/SpiralBackground";
+import DottedBackground from "../components/DottedBackground";
+import Button from "../components/Button";
 
 const tracks = [
   {
@@ -42,7 +43,7 @@ const tracks = [
 export default function TrackSelectionPage() {
   return (
     <div className="relative min-h-screen flex flex-col" style={{ backgroundColor: "var(--color-mint)" }}>
-      <SpiralBackground charColor="#085041" />
+      <DottedBackground color="#085041" intensity={0.45} />
 
       {/* Nav */}
       <header className="relative z-10 flex items-center justify-between px-10 py-5">
@@ -53,18 +54,9 @@ export default function TrackSelectionPage() {
         >
           Trendelo
         </Link>
-        <button
-          aria-label="Sign in"
-          className="text-sm font-semibold px-4 py-2 rounded-full border-2 transition-all"
-          style={{
-            fontFamily: "var(--font-display)",
-            color: "var(--color-primary)",
-            borderColor: "var(--color-primary)",
-            backgroundColor: "transparent",
-          }}
-        >
+        <Button variant="ghost" size="sm" aria-label="Sign in">
           Sign in
-        </button>
+        </Button>
       </header>
 
       {/* Main */}
@@ -118,19 +110,9 @@ export default function TrackSelectionPage() {
                 {track.description}
               </p>
 
-              <Link
-                href={`/onboarding?track=${track.id}`}
-                className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  backgroundColor: "var(--color-primary)",
-                  borderColor: "var(--color-forest)",
-                  color: "#fff",
-                  boxShadow: "3px 3px 0px var(--color-forest)",
-                }}
-              >
+              <Button href={`/onboarding?track=${track.id}`} variant="primary" fullWidth>
                 Select Track
-              </Link>
+              </Button>
             </div>
           ))}
         </div>

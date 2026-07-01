@@ -1,30 +1,31 @@
 import Link from "next/link";
-import SpiralBackground from "./components/SpiralBackground";
+import DottedBackground from "./components/DottedBackground";
+import Button from "./components/Button";
 
 const FEATURES = [
   {
     icon: "🎯",
     title: "Built for your field",
     body: "Every track is designed for one career path — not generic AI content. Marketing, Education, Business, and more coming.",
-    bg: "#eafef7",
-    border: "var(--color-primary-light)",
-    shadow: "var(--color-primary)",
+    bg: "#eafef7",              // --color-mint
+    border: "#1d9e75",          // --color-primary-light
+    shadow: "#00694c",          // --color-primary
   },
   {
     icon: "📅",
     title: "Fresh every month",
     body: "AI moves fast. Pro subscribers get a monthly digest of what changed in their field — and what it means for their work.",
-    bg: "#eef5ff",
-    border: "var(--color-blue)",
-    shadow: "#2a6bbf",
+    bg: "#dcf3e9",              // between mint & primary-light — deeper mint
+    border: "#00694c",          // --color-primary
+    shadow: "#085041",          // --color-forest
   },
   {
     icon: "🏅",
     title: "Credentials that matter",
     body: "Complete a track and earn a shareable LinkedIn badge with a verified credential page. Proof your AI skills are current.",
-    bg: "#fff8ec",
-    border: "var(--color-amber)",
-    shadow: "#a06510",
+    bg: "#c8f0e0",              // deep mint — the brand's "glow" tint
+    border: "#085041",          // --color-forest
+    shadow: "#062019",          // --color-ink
   },
 ];
 
@@ -90,7 +91,7 @@ export default function LandingPage() {
         className="relative flex flex-col min-h-screen overflow-hidden"
         style={{ backgroundColor: "var(--color-forest)" }}
       >
-        <SpiralBackground charColor="#c8f0e0" />
+        <DottedBackground color="#c8f0e0" intensity={0.6} />
 
         {/* Nav */}
         <header
@@ -101,14 +102,14 @@ export default function LandingPage() {
             borderBottom: "1px solid rgba(200,240,224,0.1)",
           }}
         >
-          <div className="w-full max-w-[1100px] mx-auto flex items-center justify-between">
+          <div className="w-full max-w-[1100px] mx-auto grid grid-cols-[1fr_auto_1fr] items-center">
           <span
-            className="text-xl font-bold tracking-tight"
+            className="justify-self-start text-xl font-bold tracking-tight"
             style={{ fontFamily: "var(--font-display)", color: "#e1f5ee" }}
           >
             Trendelo
           </span>
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex justify-self-center items-center gap-8">
             {[["Tracks", "#tracks"], ["How it works", "#how"], ["Pricing", "#pricing"]].map(([label, href]) => (
               <a
                 key={label}
@@ -120,7 +121,7 @@ export default function LandingPage() {
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="justify-self-end flex items-center gap-4">
             <Link
               href="/sign-in"
               className="text-sm font-semibold transition-opacity hover:opacity-70"
@@ -128,19 +129,9 @@ export default function LandingPage() {
             >
               Sign in
             </Link>
-            <Link
-              href="/get-started"
-              className="text-sm font-bold px-5 py-2.5 rounded-full border-2"
-              style={{
-                backgroundColor: "var(--color-primary-light)",
-                borderColor: "#c8f0e0",
-                color: "#fff",
-                fontFamily: "var(--font-display)",
-                boxShadow: "3px 3px 0px #c8f0e0",
-              }}
-            >
+            <Button href="/get-started" variant="primary" tone="dark" size="sm">
               Get started free
-            </Link>
+            </Button>
           </div>
           </div>
         </header>
@@ -148,7 +139,7 @@ export default function LandingPage() {
         {/* Hero content */}
         <div className="relative z-10 flex flex-col flex-1 items-center justify-center text-center px-6 pb-20">
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-8 text-xs font-bold uppercase tracking-widest"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mt-12 mb-8 text-xs font-bold uppercase tracking-widest"
             style={{
               borderColor: "rgba(200,240,224,0.25)",
               backgroundColor: "rgba(200,240,224,0.07)",
@@ -184,30 +175,12 @@ export default function LandingPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 items-center">
-            <Link
-              href="/get-started"
-              className="px-8 py-3.5 rounded-full border-2 text-base font-bold"
-              style={{
-                fontFamily: "var(--font-display)",
-                backgroundColor: "var(--color-primary-light)",
-                borderColor: "#c8f0e0",
-                color: "#fff",
-                boxShadow: "4px 4px 0px #c8f0e0",
-              }}
-            >
+            <Button href="/get-started" variant="primary" tone="dark" size="lg">
               Start for free →
-            </Link>
-            <a
-              href="#tracks"
-              className="px-8 py-3.5 rounded-full border-2 text-base font-bold"
-              style={{
-                fontFamily: "var(--font-display)",
-                borderColor: "rgba(200,240,224,0.3)",
-                color: "#a0d4be",
-              }}
-            >
+            </Button>
+            <Button href="#tracks" variant="ghost" tone="dark" size="lg">
               See the tracks
-            </a>
+            </Button>
           </div>
 
           {/* Track pills */}
@@ -244,8 +217,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── FEATURES ──────────────────────────────────────────────────────── */}
-      <section className="bg-white py-24 px-6">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="relative overflow-hidden bg-white py-24 px-6">
+        <DottedBackground color="#085041" intensity={0.18} />
+        <div className="relative z-10 max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {FEATURES.map((f) => (
             <div
               key={f.title}
@@ -272,8 +246,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── TRACKS ────────────────────────────────────────────────────────── */}
-      <section id="tracks" className="py-24 px-6" style={{ backgroundColor: "var(--color-mint)" }}>
-        <div className="max-w-[1100px] mx-auto">
+      <section id="tracks" className="relative overflow-hidden py-24 px-6" style={{ backgroundColor: "var(--color-mint)" }}>
+        <DottedBackground color="#085041" intensity={0.22} />
+        <div className="relative z-10 max-w-[1100px] mx-auto">
           <div className="text-center mb-14">
             <h2
               className="text-4xl font-bold mb-3"
@@ -327,19 +302,9 @@ export default function LandingPage() {
                 >
                   ✓ {track.badge}
                 </span>
-                <Link
-                  href={`/get-started?track=${track.id}`}
-                  className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    backgroundColor: "var(--color-primary)",
-                    borderColor: "var(--color-forest)",
-                    color: "#fff",
-                    boxShadow: "3px 3px 0px var(--color-forest)",
-                  }}
-                >
+                <Button href={`/get-started?track=${track.id}`} variant="primary" fullWidth>
                   Start this track
-                </Link>
+                </Button>
               </div>
             ))}
           </div>
@@ -347,8 +312,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
-      <section id="how" className="bg-white py-24 px-6">
-        <div className="max-w-[1100px] mx-auto">
+      <section id="how" className="relative overflow-hidden bg-white py-24 px-6">
+        <DottedBackground color="#085041" intensity={0.18} />
+        <div className="relative z-10 max-w-[1100px] mx-auto">
           <div className="text-center mb-14">
             <h2
               className="text-4xl font-bold mb-3"
@@ -392,8 +358,9 @@ export default function LandingPage() {
       </section>
 
       {/* ── PRICING ───────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-24 px-6" style={{ backgroundColor: "var(--color-mint)" }}>
-        <div className="max-w-[1100px] mx-auto">
+      <section id="pricing" className="relative overflow-hidden py-24 px-6" style={{ backgroundColor: "var(--color-mint)" }}>
+        <DottedBackground color="#085041" intensity={0.22} />
+        <div className="relative z-10 max-w-[1100px] mx-auto">
           <div className="text-center mb-14">
             <h2
               className="text-4xl font-bold mb-3"
@@ -432,17 +399,9 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/get-started"
-                className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
-                style={{
-                  borderColor: "var(--color-outline)",
-                  color: "var(--color-forest)",
-                  fontFamily: "var(--font-display)",
-                }}
-              >
+              <Button href="/get-started" variant="ghost" fullWidth>
                 Start free
-              </Link>
+              </Button>
             </div>
 
             {/* Pro */}
@@ -471,19 +430,9 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/get-started"
-                className="w-full py-3 rounded-full border-2 text-sm font-bold text-center block"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  backgroundColor: "var(--color-primary-light)",
-                  borderColor: "#c8f0e0",
-                  color: "#fff",
-                  boxShadow: "3px 3px 0px #c8f0e0",
-                }}
-              >
+              <Button href="/get-started" variant="primary" tone="dark" fullWidth>
                 Go Pro
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -491,10 +440,11 @@ export default function LandingPage() {
 
       {/* ── BOTTOM CTA ────────────────────────────────────────────────────── */}
       <section
-        className="py-28 px-6 text-center"
+        className="relative overflow-hidden py-28 px-6 text-center"
         style={{ backgroundColor: "var(--color-forest)" }}
       >
-        <div className="max-w-2xl mx-auto">
+        <DottedBackground color="#c8f0e0" intensity={0.55} />
+        <div className="relative z-10 max-w-2xl mx-auto">
           <h2
             className="text-4xl md:text-5xl font-bold mb-5"
             style={{ fontFamily: "var(--font-display)", color: "#fff", letterSpacing: "-0.025em" }}
@@ -505,19 +455,9 @@ export default function LandingPage() {
           <p className="text-lg mb-10" style={{ color: "#8fc9b0", fontFamily: "var(--font-body)" }}>
             Start with Module 1 for free. No credit card required.
           </p>
-          <Link
-            href="/get-started"
-            className="inline-block px-10 py-4 rounded-full border-2 text-base font-bold"
-            style={{
-              fontFamily: "var(--font-display)",
-              backgroundColor: "var(--color-primary-light)",
-              borderColor: "#c8f0e0",
-              color: "#fff",
-              boxShadow: "4px 4px 0px #c8f0e0",
-            }}
-          >
+          <Button href="/get-started" variant="primary" tone="dark" size="lg">
             Start for free →
-          </Link>
+          </Button>
         </div>
       </section>
 

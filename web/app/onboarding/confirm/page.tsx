@@ -1,5 +1,6 @@
 import Link from "next/link";
-import SpiralBackground from "../../components/SpiralBackground";
+import DottedBackground from "../../components/DottedBackground";
+import Button from "../../components/Button";
 
 export default async function ConfirmPage({
   searchParams,
@@ -14,7 +15,7 @@ export default async function ConfirmPage({
       className="relative min-h-screen flex flex-col"
       style={{ backgroundColor: "var(--color-mint)" }}
     >
-      <SpiralBackground charColor="#085041" />
+      <DottedBackground color="#085041" intensity={0.45} />
 
       {/* Nav */}
       <header className="relative z-10 flex items-center px-10 py-5">
@@ -79,18 +80,11 @@ export default async function ConfirmPage({
             Click the link in the email to activate your account and start learning.
           </p>
 
-          <button
-            className="w-full py-3 rounded-full border-2 text-sm font-bold mb-4 transition-opacity hover:opacity-80"
-            style={{
-              fontFamily: "var(--font-display)",
-              borderColor: "var(--color-primary-light)",
-              color: "var(--color-primary)",
-              backgroundColor: "#fff",
-              boxShadow: "2px 2px 0px var(--color-primary-light)",
-            }}
-          >
-            Resend email
-          </button>
+          <div className="mb-4">
+            <Button variant="ghost" fullWidth>
+              Resend email
+            </Button>
+          </div>
 
           <p
             className="text-xs"

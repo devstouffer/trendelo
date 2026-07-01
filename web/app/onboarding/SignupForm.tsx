@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Button from "../components/Button";
 
 interface Props {
   track: string;
@@ -35,19 +36,10 @@ export default function SignupForm({ track }: Props) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       {/* Google */}
-      <button
-        type="button"
-        className="w-full py-3 rounded-full border-2 text-sm font-bold flex items-center justify-center gap-3 transition-opacity hover:opacity-80"
-        style={{
-          fontFamily: "var(--font-display)",
-          borderColor: "var(--color-outline)",
-          color: "var(--color-on-surface)",
-          backgroundColor: "#fff",
-        }}
-      >
+      <Button type="button" variant="ghost" fullWidth>
         <GoogleIcon />
         Continue with Google
-      </button>
+      </Button>
 
       {/* Divider */}
       <div className="flex items-center gap-3">
@@ -132,19 +124,9 @@ export default function SignupForm({ track }: Props) {
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        className="w-full py-3.5 rounded-full border-2 text-sm font-bold transition-opacity hover:opacity-90"
-        style={{
-          fontFamily: "var(--font-display)",
-          backgroundColor: "var(--color-primary)",
-          borderColor: "var(--color-forest)",
-          color: "#fff",
-          boxShadow: "3px 3px 0px var(--color-forest)",
-        }}
-      >
+      <Button type="submit" variant="primary" fullWidth>
         Create account →
-      </button>
+      </Button>
     </form>
   );
 }

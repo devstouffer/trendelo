@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Button from "../components/Button";
+import DottedBackground from "../components/DottedBackground";
 
 const TRACK_META: Record<string, {
   label: string;
@@ -132,23 +134,18 @@ export default function DashboardPage() {
 
         {/* Track switcher */}
         <div className="relative" ref={switcherRef}>
-          <button
+          <Button
             onClick={() => setSwitcherOpen((v) => !v)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border-2 text-sm font-bold transition-opacity hover:opacity-80"
-            style={{
-              fontFamily: "var(--font-display)",
-              backgroundColor: "var(--color-primary-light)",
-              borderColor: "#c8f0e0",
-              color: "#fff",
-              boxShadow: "3px 3px 0px #c8f0e0",
-            }}
+            variant="ghost"
+            tone="dark"
+            size="sm"
+            aria-expanded={switcherOpen}
+            aria-haspopup="menu"
           >
             <span>{track.emoji}</span>
             <span className="hidden sm:inline">{track.label}</span>
-            <span style={{ fontSize: "10px", color: "var(--color-on-surface-muted)" }}>
-              {switcherOpen ? "▲" : "▼"}
-            </span>
-          </button>
+            <span style={{ fontSize: "9px", opacity: 0.75 }}>{switcherOpen ? "▲" : "▼"}</span>
+          </Button>
 
           {switcherOpen && (
             <div
@@ -219,7 +216,9 @@ export default function DashboardPage() {
       </header>
 
       {/* ── Main ─────────────────────────────────────────────────────────── */}
-      <main className="max-w-4xl mx-auto px-6 py-10">
+      <div className="relative overflow-hidden">
+        <DottedBackground color="#085041" intensity={0.18} />
+        <main className="relative z-10 max-w-4xl mx-auto px-6 py-10">
 
         {/* Welcome */}
         <div className="mb-10">
@@ -277,36 +276,42 @@ export default function DashboardPage() {
 
         {/* Tabs */}
         <div
-          className="flex gap-1 mb-8 p-1 rounded-full border-2 w-fit"
+          role="tablist"
+          aria-label="Dashboard sections"
+          className="flex gap-1 mb-8 p-1 rounded-full w-fit"
           style={{
-            borderColor: "var(--color-forest)",
-            backgroundColor: "#fff",
-            boxShadow: "3px 3px 0px var(--color-forest)",
+            backgroundColor: "rgba(8, 80, 65, 0.06)",
+            border: "1px solid rgba(8, 80, 65, 0.2)",
           }}
         >
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all"
-              style={{
-                fontFamily: "var(--font-display)",
-                backgroundColor: activeTab === tab.id ? "var(--color-primary)" : "transparent",
-                color: activeTab === tab.id ? "#fff" : "var(--color-on-surface-muted)",
-                boxShadow: activeTab === tab.id ? "2px 2px 0px var(--color-forest)" : "none",
-              }}
-            >
-              <span>{tab.emoji}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
+          {TABS.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveTab(tab.id)}
+                className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-colors duration-200"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  backgroundColor: isActive ? "#062019" : "transparent",
+                  color: isActive ? "#ffffff" : "var(--color-on-surface-muted)",
+                }}
+              >
+                <span>{tab.emoji}</span>
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Tab content */}
         {activeTab === "course"     && <CourseTab track={track} trackId={activeTrack} />}
         {activeTab === "newsletter" && <NewsletterTab />}
         {activeTab === "library"    && <LibraryTab />}
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
@@ -366,19 +371,9 @@ function CourseTab({
             </p>
           </div>
 
-          <Link
-            href={`/learn/${trackId}`}
-            className="px-7 py-3 rounded-full border-2 text-sm font-bold text-center shrink-0"
-            style={{
-              fontFamily: "var(--font-display)",
-              backgroundColor: "var(--color-primary)",
-              borderColor: "var(--color-forest)",
-              color: "#fff",
-              boxShadow: "3px 3px 0px var(--color-forest)",
-            }}
-          >
+          <Button href={`/learn/${trackId}`} variant="primary" size="md" className="shrink-0">
             Continue →
-          </Link>
+          </Button>
         </div>
       </div>
 
@@ -440,19 +435,9 @@ function NewsletterTab() {
       >
         Get a monthly digest of what changed in AI for your field — what&apos;s new, what matters, and what to do about it.
       </p>
-      <Link
-        href="/get-started"
-        className="inline-block px-8 py-3.5 rounded-full border-2 text-sm font-bold"
-        style={{
-          fontFamily: "var(--font-display)",
-          backgroundColor: "var(--color-primary)",
-          borderColor: "var(--color-forest)",
-          color: "#fff",
-          boxShadow: "3px 3px 0px var(--color-forest)",
-        }}
-      >
+      <Button href="/get-started" variant="primary" size="lg">
         Upgrade to Pro →
-      </Link>
+      </Button>
     </div>
   );
 }
@@ -485,17 +470,9 @@ function LibraryTab() {
             <p className="text-xs mb-4" style={{ color: "var(--color-on-surface-muted)" }}>
               {item.duration} read
             </p>
-            <button
-              className="w-full py-2 rounded-full border-2 text-xs font-bold transition-opacity hover:opacity-80"
-              style={{
-                fontFamily: "var(--font-display)",
-                borderColor: "var(--color-primary-light)",
-                color: "var(--color-primary)",
-                backgroundColor: "var(--color-mint)",
-              }}
-            >
+            <Button variant="ghost" size="sm" fullWidth>
               Start →
-            </button>
+            </Button>
           </div>
         ))}
       </div>

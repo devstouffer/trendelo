@@ -5,7 +5,8 @@
       "name": "trendelo-web",
       "runtimeExecutable": "cmd",
       "runtimeArgs": ["/c", "C:\\Users\\devst\\Downloads\\Trendelo\\start-dev.bat"],
-      "port": 3000
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

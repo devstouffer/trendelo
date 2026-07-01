@@ -1,5 +1,6 @@
 import Link from "next/link";
-import SpiralBackground from "../components/SpiralBackground";
+import DottedBackground from "../components/DottedBackground";
+import Button from "../components/Button";
 import SignupForm from "./SignupForm";
 
 const TRACK_META: Record<string, { label: string; emoji: string }> = {
@@ -23,7 +24,7 @@ export default async function OnboardingPage({
       className="relative min-h-screen flex flex-col"
       style={{ backgroundColor: "var(--color-mint)" }}
     >
-      <SpiralBackground charColor="#085041" />
+      <DottedBackground color="#085041" intensity={0.45} />
 
       {/* Nav */}
       <header className="relative z-10 flex items-center justify-between px-10 py-5">
@@ -34,17 +35,9 @@ export default async function OnboardingPage({
         >
           Trendelo
         </Link>
-        <Link
-          href="/sign-in"
-          className="text-sm font-semibold px-4 py-2 rounded-full border-2 transition-opacity hover:opacity-70"
-          style={{
-            fontFamily: "var(--font-display)",
-            color: "var(--color-primary)",
-            borderColor: "var(--color-primary)",
-          }}
-        >
+        <Button href="/sign-in" variant="ghost" size="sm">
           Sign in
-        </Link>
+        </Button>
       </header>
 
       {/* Main */}
