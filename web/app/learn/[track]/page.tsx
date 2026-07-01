@@ -8,7 +8,7 @@ import DottedBackground from "../../components/DottedBackground";
 
 // ── Track & module data ───────────────────────────────────────────────────────
 
-const TRACKS: Record<string, {
+export const TRACKS: Record<string, {
   label: string;
   emoji: string;
   tagline: string;

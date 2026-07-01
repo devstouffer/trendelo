@@ -20,7 +20,11 @@
       "Bash(node \"C:/Users/devst/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/84cae3d0-28f7-40ed-ae93-1372aea27942/a7e7bee8-62b5-4bea-b5df-4b2dac73f989/skills/impeccable/scripts/context.mjs\")",
       "PowerShell($r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing -TimeoutSec 15; \"HTTP $\\($r.StatusCode\\)\"; if \\($r.Content -match 'btn btn-primary' -or $r.Content -match 'btn-ghost'\\) { \"FOUND: new button classes are rendered\" } else { \"NOT FOUND\" })",
       "PowerShell($pages = \"/\", \"/dashboard\", \"/learn/marketing\"; foreach \\($p in $pages\\) { $h = \\(Invoke-WebRequest -Uri \"http://localhost:3000$p\" -UseBasicParsing -TimeoutSec 15\\).Content; $canvases = \\([regex]::Matches\\($h, '<canvas\\\\b'\\)\\).Count; \"$p — canvas count: $canvases\" })",
-      "PowerShell($conn = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if \\($conn\\) { $pid_ = $conn[0].OwningProcess; $proc = Get-Process -Id $pid_ -ErrorAction SilentlyContinue; \"PID $pid_ \\($\\($proc.ProcessName\\)\\) is holding port 3000\" } else { \"Port 3000 is free\" })"
+      "PowerShell($conn = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if \\($conn\\) { $pid_ = $conn[0].OwningProcess; $proc = Get-Process -Id $pid_ -ErrorAction SilentlyContinue; \"PID $pid_ \\($\\($proc.ProcessName\\)\\) is holding port 3000\" } else { \"Port 3000 is free\" })",
+      "Bash(netstat -ano)",
+      "Bash(powershell -Command \"Stop-Process -Id 47788 -Force\")",
+      "Bash(npx eslint *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

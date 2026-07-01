@@ -23,6 +23,11 @@
   --color-ghost-border:        rgba(8, 80, 65, 0.18);
   --color-ghost-border-hover:  rgba(8, 80, 65, 0.34);
 
+  /* Feedback colors (quiz correct/incorrect states) */
+  --color-error:       #d64545;
+  --color-error-light: #e88b83;
+  --color-error-bg:    #fdecea;
+
   /* Surface colors */
   --color-surface: #ffffff;
   --color-surface-low: #e4f8f1;
