@@ -22,9 +22,9 @@ export default async function OnboardingPage({
   return (
     <div
       className="relative min-h-screen flex flex-col"
-      style={{ backgroundColor: "var(--color-mint)" }}
+      style={{ backgroundColor: "#63b295" }}
     >
-      <DottedBackground color="#085041" intensity={0.45} />
+      <DottedBackground color="#eafef7" intensity={0.5} />
 
       {/* Nav */}
       <header className="relative z-10 flex items-center justify-between px-10 py-5">

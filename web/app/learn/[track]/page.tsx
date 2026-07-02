@@ -87,14 +87,14 @@ export const TRACKS: Record<string, {
   },
 };
 
-// Fixed demo progress — 2 complete, 1 in-progress, 3 locked
+// Fixed demo progress — all 6 modules unlocked so every lesson is reachable
 const DEMO: { status: "completed" | "in-progress" | "locked"; done: number }[] = [
   { status: "completed",   done: 10 },
   { status: "completed",   done: 10 },
   { status: "in-progress", done: 4  },
-  { status: "locked",      done: 0  },
-  { status: "locked",      done: 0  },
-  { status: "locked",      done: 0  },
+  { status: "in-progress", done: 0  },
+  { status: "in-progress", done: 0  },
+  { status: "in-progress", done: 0  },
 ];
 
 // ── Map geometry ──────────────────────────────────────────────────────────────
@@ -175,8 +175,8 @@ export default function LearnTrackPage() {
   );
 
   return (
-    <div className="relative overflow-hidden" style={{ backgroundColor: "var(--color-mint)", minHeight: "100vh" }}>
-      <DottedBackground color="#085041" intensity={0.18} />
+    <div className="relative overflow-hidden" style={{ backgroundColor: "#63b295", minHeight: "100vh" }}>
+      <DottedBackground color="#eafef7" intensity={0.5} />
       <style>{ANIM}</style>
 
       {/* ── Sticky nav ───────────────────────────────────────────────────── */}
@@ -288,82 +288,87 @@ export default function LearnTrackPage() {
 
       {/* ── Module map ───────────────────────────────────────────────────── */}
       <div className="max-w-sm mx-auto px-4 pb-20">
-        <p
-          className="text-xs font-bold uppercase tracking-widest my-5 text-center"
-          style={{ color: "var(--color-on-surface-muted)", fontFamily: "var(--font-body)" }}
+        <div
+          className="rounded-2xl pt-2 pb-4"
+          style={{ backgroundColor: "var(--color-surface-low)", border: "1px solid var(--color-ghost-border)" }}
         >
-          Your learning path
-        </p>
+          <p
+            className="text-xs font-bold uppercase tracking-widest my-5 text-center"
+            style={{ color: "var(--color-on-surface-muted)", fontFamily: "var(--font-body)" }}
+          >
+            Your learning path
+          </p>
 
-        {/* Constrain to exactly W px, centred; clip any overflow */}
-        <div className="mx-auto overflow-hidden" style={{ width: W }}>
-          <div className="relative" style={{ width: W, height: CH }}>
+          {/* Constrain to exactly W px, centred; clip any overflow */}
+          <div className="mx-auto overflow-hidden" style={{ width: W }}>
+            <div className="relative" style={{ width: W, height: CH }}>
 
-            {/* SVG layer — path lines + star decorations */}
-            <svg
-              viewBox={`0 0 ${W} ${SH}`}
-              width={W}
-              height={SH}
-              className="absolute inset-0 pointer-events-none"
-              style={{ zIndex: 0 }}
-            >
-              {/* Segment lines */}
-              {Array.from({ length: 5 }, (_, i) => {
-                const done = i <= 1;
-                return (
-                  <path
+                {/* SVG layer — path lines + star decorations */}
+                <svg
+                  viewBox={`0 0 ${W} ${SH}`}
+                  width={W}
+                  height={SH}
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ zIndex: 0 }}
+                >
+                  {/* Segment lines */}
+                  {Array.from({ length: 5 }, (_, i) => {
+                    const done = i <= 1;
+                    return (
+                      <path
+                        key={i}
+                        d={segPath(i)}
+                        fill="none"
+                        stroke={done ? "var(--color-primary)" : "#c5d9d0"}
+                        strokeWidth={8}
+                        strokeLinecap="round"
+                        strokeDasharray={done ? undefined : "14 9"}
+                        opacity={done ? 1 : 0.6}
+                      />
+                    );
+                  })}
+
+                  {/* Star decorations along completed segments */}
+                  {[0, 1].map(seg =>
+                    [0.3, 0.5, 0.72].map((t, j) => {
+                      const [bx, by] = bezierPt(seg, t);
+                      return (
+                        <text
+                          key={`s${seg}-${j}`}
+                          x={bx}
+                          y={by}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          fontSize={11}
+                          style={{ userSelect: "none" }}
+                        >
+                          ⭐
+                        </text>
+                      );
+                    })
+                  )}
+                </svg>
+
+                {/* Module nodes */}
+                {data.modules.map((mod, i) => (
+                  <ModuleNode
                     key={i}
-                    d={segPath(i)}
-                    fill="none"
-                    stroke={done ? "var(--color-primary)" : "#c5d9d0"}
-                    strokeWidth={8}
-                    strokeLinecap="round"
-                    strokeDasharray={done ? undefined : "14 9"}
-                    opacity={done ? 1 : 0.6}
+                    index={i}
+                    trackId={trackId}
+                    cx={POS[i][0]}
+                    cy={POS[i][1]}
+                    emoji={mod.emoji}
+                    title={mod.title}
+                    status={DEMO[i].status}
+                    done={DEMO[i].done}
+                    total={10}
                   />
-                );
-              })}
-
-              {/* Star decorations along completed segments */}
-              {[0, 1].map(seg =>
-                [0.3, 0.5, 0.72].map((t, j) => {
-                  const [bx, by] = bezierPt(seg, t);
-                  return (
-                    <text
-                      key={`s${seg}-${j}`}
-                      x={bx}
-                      y={by}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fontSize={11}
-                      style={{ userSelect: "none" }}
-                    >
-                      ⭐
-                    </text>
-                  );
-                })
-              )}
-            </svg>
-
-            {/* Module nodes */}
-            {data.modules.map((mod, i) => (
-              <ModuleNode
-                key={i}
-                index={i}
-                trackId={trackId}
-                cx={POS[i][0]}
-                cy={POS[i][1]}
-                emoji={mod.emoji}
-                title={mod.title}
-                status={DEMO[i].status}
-                done={DEMO[i].done}
-                total={10}
-              />
-            ))}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
@@ -557,25 +562,36 @@ function ModuleNode({
           {title}
         </p>
 
-        {/* Lesson progress dots */}
+        {/* Lesson progress dots — clickable for unlocked modules */}
         <div style={{ display: "flex", gap: 3, justifyContent: dotsAlign, flexWrap: "wrap" }}>
-          {Array.from({ length: total }, (_, j) => (
-            <div
-              key={j}
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                backgroundColor:
-                  j < done
-                    ? "var(--color-primary)"
-                    : status === "locked"
-                    ? "#d4e4dc"
-                    : "#c5d5cf",
-                border: j < done ? "none" : `1px solid ${status === "locked" ? "#c0cfc8" : "#b0c8be"}`,
-              }}
-            />
-          ))}
+          {Array.from({ length: total }, (_, j) => {
+            const dot = (
+              <div
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  backgroundColor:
+                    j < done
+                      ? "var(--color-primary)"
+                      : status === "locked"
+                      ? "#d4e4dc"
+                      : "#c5d5cf",
+                  border: j < done ? "none" : `1px solid ${status === "locked" ? "#c0cfc8" : "#b0c8be"}`,
+                }}
+              />
+            );
+
+            if (status === "locked") {
+              return <span key={j}>{dot}</span>;
+            }
+
+            return (
+              <Link key={j} href={`/learn/${trackId}/${index + 1}/${j + 1}`} aria-label={`Lesson ${j + 1}`}>
+                {dot}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Status action / badge */}

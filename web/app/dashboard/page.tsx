@@ -60,8 +60,8 @@ const NEWS = [
     tag: "New Track",
     text: "AI in Design is now live — generative tools, AI rendering, and parametric workflows.",
     date: "Jun 2026",
-    bg: "#eef5ff",
-    border: "var(--color-blue)",
+    bg: "#fff8ec",
+    border: "var(--color-amber)",
   },
   {
     tag: "New Track",
@@ -74,8 +74,8 @@ const NEWS = [
     tag: "Content Update",
     text: "Module 6 added to AI in Marketing — build your AI-enhanced workflow and earn your badge.",
     date: "May 2026",
-    bg: "#eafef7",
-    border: "var(--color-primary-light)",
+    bg: "#fff8ec",
+    border: "var(--color-amber)",
   },
 ];
 
@@ -112,7 +112,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--color-mint)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#63b295" }}>
 
       {/* ── Nav ──────────────────────────────────────────────────────────── */}
       <header
@@ -217,25 +217,37 @@ export default function DashboardPage() {
 
       {/* ── Main ─────────────────────────────────────────────────────────── */}
       <div className="relative overflow-hidden">
-        <DottedBackground color="#085041" intensity={0.18} />
+        <DottedBackground color="#eafef7" intensity={0.5} />
         <main className="relative z-10 max-w-4xl mx-auto px-6 py-10">
 
         {/* Welcome */}
-        <div className="mb-10">
+        <div
+          className="mb-10 rounded-2xl px-6 py-6"
+          style={{
+            backgroundColor: "var(--color-surface-low)",
+            border: "1px solid var(--color-ghost-border)",
+          }}
+        >
           <h1
             className="text-3xl font-bold mb-1"
             style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}
           >
             Welcome back, Devin 👋
           </h1>
-          <p className="text-base" style={{ color: "var(--color-on-surface-muted)" }}>
+          <p className="text-base" style={{ color: "var(--color-ink)" }}>
             You&apos;re on track to earn your{" "}
-            <strong style={{ color: "var(--color-primary)" }}>{track.badge}</strong> badge.
+            <strong style={{ color: "var(--color-ink)" }}>{track.badge}</strong> badge.
           </p>
         </div>
 
         {/* What's new */}
-        <div className="mb-10">
+        <div
+          className="mb-10 rounded-2xl px-6 py-6"
+          style={{
+            backgroundColor: "var(--color-surface-low)",
+            border: "1px solid var(--color-ghost-border)",
+          }}
+        >
           <h2
             className="text-xs font-bold uppercase tracking-widest mb-4"
             style={{ color: "var(--color-on-surface-muted)", fontFamily: "var(--font-body)" }}
